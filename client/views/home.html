@@ -1,0 +1,73 @@
+<template name="home">
+    <section class="content-header">
+      <h1>Home</h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Layout</a></li>
+        <li class="active">Top Navigation</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+        {{> lastStats}}
+      </div>
+    </section>
+</template>
+
+<template name="lastStats">
+    <div class="col-md-6 col-xs-12">
+      <div class="box box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Top Líderes Políticos</h3>
+            <div class="box-tools pull-right">
+              <span><i class="fa fa-clock-o"></i> {{prettifyDate lastUpdate}} </span>
+              <span><i class="fa fa-circle-o-notch fa-spin"></i></span>
+            </div>
+          </div>
+          <div class="box-body table-responsive no-padding">
+              {{> chartStats type='person'}}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="box box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Top Partidos Políticos</h3>
+            <div class="box-tools pull-right">
+              <span><i class="fa fa-clock-o"></i> {{prettifyDate lastUpdate}} </span>
+              <span><i class="fa fa-circle-o-notch fa-spin"></i></span>
+            </div>
+          </div><!-- /.box-header -->
+          <div class="box-body no-padding">
+              {{> chartStats type='party'}}
+          </div>
+      </div>
+    </div>
+</template>
+
+<template name="chartStats">
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th style="width: 10px">#</th>
+        <th>{{getPlayerType type}}</th>
+        <th>Mentions</th>
+        <th>Top Hashtag</th>
+        <th style="width: 40px">%</th>
+      </tr>
+      {{# each playerStats}}
+        <tr>
+          <td>{{index}}.</td>
+          <td>{{name}}</td>
+          <td>
+            <div class="progress progress-xs progress-striped active">
+              <div class="progress-bar progress-bar-{{getPartyColor party}}" style="width: {{mentions}}%"></div>
+            </div>
+          </td>
+          <td><span class="label label-{{getPartyColor party}}">{{# if tag}}#{{tag}}{{/if}}</span></td>
+          <td><span class="badge bg-{{getPartyColor party}}">{{mentions}}</span></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

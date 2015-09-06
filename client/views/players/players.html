@@ -1,0 +1,49 @@
+<template name="players">
+  <section class="content-header">
+      <h1>{{title}}</h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">{{title}}</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+      {{#each players}}
+        <div class="col-md-4 col-sm-6">
+          <div class="box box-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-{{getPartyColor party}}">
+                <h3 class="widget-user-username">{{twitter.name}}</h3>
+                <h5 class="widget-user-desc">{{twitter.description}}</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle" src="{{twitter.profile_image_url}}" alt="User Avatar">
+              </div>
+              <div class="box-footer">
+                <div class="row">
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">{{twitter.status_count}}</h5>
+                      <span class="description-text">TWEETS</span>
+                    </div><!-- /.description-block -->
+                  </div><!-- /.col -->
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">{{twitter.followers_count}}</h5>
+                      <span class="description-text">FOLLOWERS</span>
+                    </div><!-- /.description-block -->
+                  </div><!-- /.col -->
+                  <div class="col-sm-4">
+                    <div class="description-block">
+                      <h5 class="description-header">{{twitter.followings_count}}</h5>
+                      <span class="description-text">FOLLOWINGS</span>
+                    </div><!-- /.description-block -->
+                  </div><!-- /.col -->
+                </div><!-- /.row -->
+              </div>
+            </div>
+        </div>
+      {{/each}}
+      </div>
+    </section>
+</template>

@@ -1,0 +1,55 @@
+<template name="adminCrons">
+  <section class="content-header">
+      <h1>Crons</h1>
+      <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Crons</li>
+      </ol>
+    </section>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Crons</h3>
+              <div class="box-tools pull-left">
+                {{> cronControls}}
+              </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover table-responsive">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Running</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each crons}}
+                    <tr {{cronRowAttributes}}>
+                      <td>{{name}}</td>
+                      <td><input type="checkbox" {{cronInputAttributes}}></td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+</template>
+
+<template name="cronControls">
+
+  <button type="button" class="btn btn-sm btn-success start-all-crons">
+    <i class="fa fa-repeat"></i> Start all
+  </button>
+
+  <button type="button" class="btn btn-sm btn-danger stop-all-crons">
+    <i class="fa fa-remove"></i> Stop all
+  </button>
+
+</template>
+
