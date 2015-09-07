@@ -12,3 +12,6 @@ Meteor.publish 'stats', () ->
 
 Meteor.publish 'latestStats', () ->
   PlayerStats.find({}, {sort:{'createdAt': -1}, limit:10})
+
+Meteor.publish 'latestFollowers', () ->
+  PlayerFollowers.find({}, {sort:{'createdAt': -1}, limit:30})

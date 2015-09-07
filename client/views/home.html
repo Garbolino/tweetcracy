@@ -11,41 +11,96 @@
       <div class="row">
         {{> lastStats}}
       </div>
+      <div class="row">
+        <!-- {{> playersChart }} -->
+      </div>
     </section>
+</template>
+<template name="playersChart">
+  <div class="col-md-12">
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Followers</a></li>
+        <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Menciones</a></li>
+        <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+          {{> chartFollowers}}
+        </div><!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_2">
+          {{> chartMentions}}
+        </div><!-- /.tab-pane -->
+      </div><!-- /.tab-content -->
+    </div>
+  </div>
+</template>
+
+<template name="chartFollowers">
+  <canvas id="chart-followers"></canvas>
+</template>
+<template name="chartMentions">
+  <div class="chart" id="chart-mentions"></div>
 </template>
 
 <template name="lastStats">
     <div class="col-md-6 col-xs-12">
       <div class="box box-solid">
           <div class="box-header">
-            <h3 class="box-title">Top Líderes Políticos</h3>
+            <h3 class="box-title">Top Mentions Líderes Políticos</h3>
             <div class="box-tools pull-right">
               <span><i class="fa fa-clock-o"></i> {{prettifyDate lastUpdate}} </span>
               <span><i class="fa fa-circle-o-notch fa-spin"></i></span>
             </div>
           </div>
           <div class="box-body table-responsive no-padding">
-              {{> chartStats type='person'}}
+              {{> rankingMentions type='person'}}
           </div>
       </div>
     </div>
     <div class="col-md-6 col-xs-12">
       <div class="box box-solid">
           <div class="box-header">
-            <h3 class="box-title">Top Partidos Políticos</h3>
+            <h3 class="box-title">Top Mentions Partidos Políticos</h3>
             <div class="box-tools pull-right">
               <span><i class="fa fa-clock-o"></i> {{prettifyDate lastUpdate}} </span>
               <span><i class="fa fa-circle-o-notch fa-spin"></i></span>
             </div>
           </div><!-- /.box-header -->
-          <div class="box-body no-padding">
-              {{> chartStats type='party'}}
+          <div class="box-body table-responsive no-padding">
+              {{> rankingMentions type='party'}}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="box box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Top Followers Líderes Políticos</h3>
+            <div class="box-tools pull-right">
+              <span><i class="fa fa-clock-o"></i> {{prettifyToday}} </span>
+            </div>
+          </div>
+          <div class="box-body table-responsive no-padding">
+              {{> rankingFollowers type='person'}}
+          </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="box box-solid">
+          <div class="box-header">
+            <h3 class="box-title">Top Followers Partidos Políticos</h3>
+            <div class="box-tools pull-right">
+              <span><i class="fa fa-clock-o"></i> {{prettifyToday}} </span>
+            </div>
+          </div><!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+              {{> rankingFollowers type='party'}}
           </div>
       </div>
     </div>
 </template>
 
-<template name="chartStats">
+<template name="rankingMentions">
   <table class="table table-striped">
     <tbody>
       <tr>
@@ -53,7 +108,7 @@
         <th>{{getPlayerType type}}</th>
         <th>Mentions</th>
         <th>Top Hashtag</th>
-        <th style="width: 40px">%</th>
+        <th style="width: 65px">Ratio %</th>
       </tr>
       {{# each playerStats}}
         <tr>
@@ -66,6 +121,27 @@
           </td>
           <td><span class="label label-{{getPartyColor party}}">{{# if tag}}#{{tag}}{{/if}}</span></td>
           <td><span class="badge bg-{{getPartyColor party}}">{{mentions}}</span></td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>
+
+<template name="rankingFollowers">
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th style="width: 40px">#</th>
+        <th>{{getPlayerType type}}</th>
+        <th>Followers</th>
+        <th>Evolución</th>
+      </tr>
+      {{# each playerFollowers}}
+        <tr>
+          <td>{{index}}.</td>
+          <td>{{name}}</td>
+          <td><span class="badge bg-{{getPartyColor party}}">{{twitter.followers_count}}</span></td>
+          <td style="width: 20px"><button class="btn btn-xs bg-{{getPartyColor party}}"><i class="fa fa-line-chart"></i></button></td>
         </tr>
       {{/each}}
     </tbody>

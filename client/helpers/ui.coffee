@@ -1,6 +1,12 @@
 UI.registerHelper "prettifyDate", (date) ->
   moment(date).fromNow()
 
+UI.registerHelper "prettifyDateFormat", (date) ->
+  moment(date).format('DD/MM/YYYY')
+
+UI.registerHelper "prettifyToday", () ->
+  moment(new Date()).format('DD/MM/YYYY')
+
 UI.registerHelper "compactDate", (date) ->
   moment(date).format("H:mm:ss DD/MM/YY")
 

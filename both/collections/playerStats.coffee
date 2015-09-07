@@ -1,4 +1,3 @@
-@Schema = {}
 @PlayerStats = new Meteor.Collection("player_stats")
 
 

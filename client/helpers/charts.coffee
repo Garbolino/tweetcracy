@@ -9,6 +9,7 @@
     bezierCurveTension: 0.3
     bezierCurve: true
     responsive: true
+    datasetFill: false
     maintainAspectRatio: false
   new Chart(ctx).Line(data, options)
 

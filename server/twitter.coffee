@@ -49,11 +49,24 @@ getFunction = (url, params, callback) ->
 
     Players.update({_id:player._id}, updateOptions)
 
+    date = today()
+    followers = PlayerFollowers.findOne({playerId:player._id, date:date})
+
+    if followers
+      PlayerFollowers.update({_id:followers}, {$set:{'twitter':userInfo.followers_count}})
+    else
+      followersObj =
+        playerId: player._id
+        date: date
+        twitter: userInfo.followers_count
+        createdAt: new Date()
+      PlayerFollowers.insert(followersObj)
+
 
 @getTwitterUserMentions = (player) ->
   url = '/search/tweets.json'
   params =
-    q: if player.type is 'person' then player.twitter.name else player.twitter.screen_name
+    q: if player.type is 'person' then player.name else player.twitter.screen_name
     result_type: 'recent'
     count: 100
 
